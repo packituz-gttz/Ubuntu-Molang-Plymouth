@@ -1,0 +1,54 @@
+
+Window.SetBackgroundTopColor(0.234, 0.43, 0.705);
+Window.SetBackgroundBottomColor(0.16, 0.25, 0.44);
+
+screen_width=Window.GetWidth();
+screen_height=Window.GetHeight();
+
+progress = 0;
+band=0;
+
+fun refresh_callback ()
+  {
+position= screen_width-progress;
+
+
+if ( progress <= screen_width+79 && band == 0 )
+{
+ progress++;
+molang_sprite.SetImage(molang[Math.Int(progress/5) % 7]);
+molang_sprite.SetX( screen_width-progress );
+molang_sprite.SetY(screen_height/6);
+} else {
+ progress--;
+molang_sprite2.SetImage(molang2[Math.Int(progress/5) % 7]);
+molang_sprite2.SetX( screen_width - progress );
+molang_sprite2.SetY( screen_height - screen_height/5);
+band= 1;
+if( progress == 0 )
+	band = 0;
+}
+
+ubuntu_spriteWord.SetImage(ubuntu_imagesWord[Math.Int(progress/8) % 30]);
+ubuntu_spriteWord.SetX(screen_width/3 + screen_width/15);
+ubuntu_spriteWord.SetY(screen_height/3);
+
+}
+
+
+for (i = 0; i < 7 ; i++)
+  molang[i] = Image("SuperMolang" + i + ".png");
+molang_sprite = Sprite();
+
+for (i = 0; i < 7 ; i++)
+  molang2[i] = Image("SuperMolang2" + i + ".png");
+molang_sprite2 = Sprite();
+
+for (i = 1; i < 31 ; i++)
+  ubuntu_imagesWord[i] = Image("ubuntu" + i + ".PNG");
+ubuntu_spriteWord = Sprite();
+
+Plymouth.SetRefreshFunction (refresh_callback);
+
+
+
